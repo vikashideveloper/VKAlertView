@@ -16,11 +16,14 @@ class KVAlertView: UIView {
     @IBOutlet weak var popupViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var lblMessage: UILabel!
     
-    var message: String = "This is notification message! Thank you."
+    var message: String = "This is notification message! Thank you." {
+        didSet {
+         setMessage()
+        }
+    }
     var hideDelayTime: TimeInterval = 2.0
     var bgColor = UIColor.gray
     
-    static var alerts = [KVAlertView]()
     static var alertQueue = AlertQueue()
     
     override func awakeFromNib() {
@@ -48,16 +51,17 @@ class KVAlertView: UIView {
         lblMessage.text = message
     }
     
+    
 }
 
 //MARK: Class functions
 extension KVAlertView {
     class func show(message: String) {
         let alert = loadViewFromNib()
-        alert.message = message
-        alert.showWithAnimation()
-        alerts.append(alert)
+        alert.message = "\(alertQueue.count + 1) " + message
         
+        alertQueue.enqueue(alert: alert)
+        alertQueue.showAlert()
     }
     
    fileprivate class func loadViewFromNib()-> KVAlertView {
@@ -66,52 +70,15 @@ extension KVAlertView {
         return alert
     }
     
-    fileprivate class func hideAllOtherAlerts() {
-        let last = alerts.removeLast() //remove current showing alert
-        for alert in KVAlertView.alerts {
-            alert.popupView.layer.removeAllAnimations()
-            alert.removeFromSuperview()
-        }
-        alerts.removeAll()
-        alerts.append(last) //add current showing alert
-    }
+    
+}
+
+extension KVAlertView : CAAnimationDelegate {
     
 }
 
 //MARK: Animation functions
-extension KVAlertView {
-    fileprivate func showWithAnimation() {
-        let window = UIApplication.shared.delegate?.window!
-        window?.addSubview(self)
-        
-        let anim = CABasicAnimation(keyPath: "position.y")
-        anim.duration = 0.4
-        anim.fromValue = -((viewHeight/2) + 20)
-        anim.toValue = (viewHeight/2) + 20
-        
-        popupView.layer.add(anim, forKey: "showanimation")
-        self.popupViewTopConstraint.constant = 20
-        
-        hideWithAnimation(delay: DispatchTime.now() + 2.0)
-    }
-    
-    
-    fileprivate func hideWithAnimation(delay: DispatchTime) {
-        DispatchQueue.main.asyncAfter(deadline: delay) {
-            if KVAlertView.alerts.count > 1 {
-                KVAlertView.hideAllOtherAlerts()
-            }
-            let anim = CABasicAnimation(keyPath: "position.y")
-            anim.fromValue = (viewHeight/2) + 20
-            anim.duration = 0.5
-            anim.toValue = -((viewHeight/2) + 20)
-            self.popupView.layer.add(anim, forKey: "Hideanimation")
-            self.popupViewTopConstraint.constant = -(viewHeight + 20)
 
-        }
-    }
-    
-}
 
 class AlertQueue {
     var alerts = [KVAlertView]()
@@ -130,3 +97,62 @@ class AlertQueue {
 }
     
 
+extension AlertQueue {
+    
+    func showAlert() {
+        if count > 1 {
+            
+        } else {
+            showNextAlertAfter(delay: DispatchTime.now())
+        }
+    }
+    
+    fileprivate func showNextAlertAfter(delay: DispatchTime) {
+        self.showWithAnimation(delay: delay)
+    }
+
+    fileprivate func showWithAnimation(delay: DispatchTime) {
+        DispatchQueue.main.asyncAfter(deadline: delay) {
+            let window = UIApplication.shared.delegate?.window!
+            window?.addSubview(self.frontAlert!)
+            
+            let anim = CABasicAnimation(keyPath: "position.y")
+            anim.duration = 0.4
+            anim.fromValue = -((viewHeight/2) + 20)
+            anim.toValue = (viewHeight/2) + 20
+            //anim.delegate = self
+            self.frontAlert?.popupView.layer.add(anim, forKey: "showanimation")
+            self.frontAlert?.popupViewTopConstraint.constant = 20
+            self.hideWithAnimation(delay: DispatchTime.now() + 2.0)
+            
+        }
+    }
+    
+    
+    fileprivate func hideWithAnimation(delay: DispatchTime) {
+        DispatchQueue.main.asyncAfter(deadline: delay) {
+            let front = self.dequeue()
+            if KVAlertView.alertQueue.count > 0 {
+                self.showNextAlertAfter(delay: DispatchTime.now())
+                self.removeFromSuperview(delay: DispatchTime.now() + 0.5, alert: front!)
+                
+            } else {
+                let anim = CABasicAnimation(keyPath: "position.y")
+                anim.fromValue = (viewHeight/2) + 20
+                anim.duration = 0.5
+                anim.toValue = -((viewHeight/2) + 20)
+                front?.popupView.layer.add(anim, forKey: "Hideanimation")
+                front?.popupViewTopConstraint.constant = -(viewHeight + 20)
+                
+            }
+        }
+    }
+    
+    
+    fileprivate func removeFromSuperview(delay: DispatchTime, alert: KVAlertView) {
+        DispatchQueue.main.asyncAfter(deadline: delay) {
+            alert.removeFromSuperview()
+        }
+    }
+    
+}
