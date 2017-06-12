@@ -129,4 +129,4 @@ class AlertQueue {
     var frontAlert: KVAlertView? {return alerts.isEmpty ? nil : alerts.first}
 }
     
-}
+
