@@ -21,5 +21,8 @@ class ViewController: UIViewController {
     }
 
 
+    @IBAction func btnClicked(sender: UIButton) {
+        KVAlertView.show(message: "Dispose of any resources that can be recreated.")
+    }
 }
 
