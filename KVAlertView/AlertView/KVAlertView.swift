@@ -74,8 +74,7 @@ extension KVAlertView {
     }
     
     fileprivate class func loadViewFromNib()-> KVAlertView {
-        
-        let bundle = Bundle(identifier: "org.cocoapods.KVAlertView")!
+        let bundle = Bundle(for: KVAlertView.self)
         let views = bundle.loadNibNamed("KVAlertView", owner: nil, options: nil) as! [UIView]
         let alert = views[0] as! KVAlertView
         return alert
