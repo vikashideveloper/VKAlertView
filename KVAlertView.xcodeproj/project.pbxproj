@@ -15,7 +15,6 @@
 		13CB4CE11EEFF7E0001EB1AB /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13CB4CE01EEFF7E0001EB1AB /* AudioToolbox.framework */; };
 		13CB4CE81EEFFD56001EB1AB /* KVAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CB4CE61EEFFD56001EB1AB /* KVAlertView.swift */; };
 		13CB4CE91EEFFD56001EB1AB /* KVAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13CB4CE71EEFFD56001EB1AB /* KVAlertView.xib */; };
-		13CB4CEB1EF0007C001EB1AB /* Resource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 13CB4CEA1EF0007C001EB1AB /* Resource.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,7 +28,6 @@
 		13CB4CE01EEFF7E0001EB1AB /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		13CB4CE61EEFFD56001EB1AB /* KVAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVAlertView.swift; sourceTree = "<group>"; };
 		13CB4CE71EEFFD56001EB1AB /* KVAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KVAlertView.xib; sourceTree = "<group>"; };
-		13CB4CEA1EF0007C001EB1AB /* Resource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Resource.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,7 +78,6 @@
 			children = (
 				13CB4CE61EEFFD56001EB1AB /* KVAlertView.swift */,
 				13CB4CE71EEFFD56001EB1AB /* KVAlertView.xib */,
-				13CB4CEA1EF0007C001EB1AB /* Resource.bundle */,
 			);
 			path = AlertView;
 			sourceTree = "<group>";
@@ -157,7 +154,6 @@
 				136736611EEAD1E900C3066F /* LaunchScreen.storyboard in Resources */,
 				1367365E1EEAD1E900C3066F /* Assets.xcassets in Resources */,
 				1367365C1EEAD1E900C3066F /* Main.storyboard in Resources */,
-				13CB4CEB1EF0007C001EB1AB /* Resource.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
