@@ -26,8 +26,8 @@ public class KVAlertView: UIView {
     
     //Public variables
     public var hideDelayTime: TimeInterval = 1.5
-    public var bgColor = UIColor.blue.withAlphaComponent(0.4)
-    public var textColor: UIColor = UIColor.black
+    public var bgColor = UIColor.black.withAlphaComponent(0.8)
+    public var textColor: UIColor = UIColor.white
     public var isAllowVibration  = false
     
     //class variables
@@ -67,14 +67,15 @@ public class KVAlertView: UIView {
 extension KVAlertView {
    public class func show(message: String) {
         let alert = loadViewFromNib()
-        alert.message = "\(alertQueue.count + 1) " + message
+        alert.message =  message
         
         alertQueue.enqueue(alert: alert)
         alertQueue.showAlert()
     }
     
     fileprivate class func loadViewFromNib()-> KVAlertView {
-        let bundle = Bundle.main
+        
+        let bundle = Bundle(identifier: "smileIndia.KVAlertView")!
         let views = bundle.loadNibNamed("KVAlertView", owner: nil, options: nil) as! [UIView]
         let alert = views[0] as! KVAlertView
         return alert
