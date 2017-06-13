@@ -10,7 +10,7 @@ import UIKit
 
 var viewHeight:CGFloat = 70.0
 
-class KVAlertView: UIView {
+public class KVAlertView: UIView {
     let screen = UIScreen.main.bounds
     @IBOutlet weak var popupView: UIView!
     @IBOutlet weak var popupViewTopConstraint: NSLayoutConstraint!
@@ -21,12 +21,14 @@ class KVAlertView: UIView {
          setMessage()
         }
     }
+    
+    var alertScheduleTime = 2.0
     var hideDelayTime: TimeInterval = 2.0
     var bgColor = UIColor.gray
     
     static var alertQueue = AlertQueue()
     
-    override func awakeFromNib() {
+    override public func awakeFromNib() {
         super.awakeFromNib()
         self.setUI()
         self.setMessage()
@@ -56,7 +58,7 @@ class KVAlertView: UIView {
 
 //MARK: Class functions
 extension KVAlertView {
-    class func show(message: String) {
+   public class func show(message: String) {
         let alert = loadViewFromNib()
         alert.message = "\(alertQueue.count + 1) " + message
         
@@ -123,7 +125,7 @@ extension AlertQueue {
             //anim.delegate = self
             self.frontAlert?.popupView.layer.add(anim, forKey: "showanimation")
             self.frontAlert?.popupViewTopConstraint.constant = 20
-            self.hideWithAnimation(delay: DispatchTime.now() + 2.0)
+            self.hideWithAnimation(delay: DispatchTime.now() + self.frontAlert!.hideDelayTime)
             
         }
     }
