@@ -13,7 +13,8 @@
 		1367365E1EEAD1E900C3066F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1367365D1EEAD1E900C3066F /* Assets.xcassets */; };
 		136736611EEAD1E900C3066F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1367365F1EEAD1E900C3066F /* LaunchScreen.storyboard */; };
 		1367366C1EEAD34300C3066F /* KVAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1367366B1EEAD34300C3066F /* KVAlertView.swift */; };
-		139545461EEFD49400D80B6B /* KVAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 139545451EEFD49400D80B6B /* KVAlertView.xib */; };
+		139545481EEFD53000D80B6B /* KVAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 139545471EEFD53000D80B6B /* KVAlertView.xib */; };
+		13CB4CE11EEFF7E0001EB1AB /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13CB4CE01EEFF7E0001EB1AB /* AudioToolbox.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,7 +26,8 @@
 		136736601EEAD1E900C3066F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		136736621EEAD1E900C3066F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1367366B1EEAD34300C3066F /* KVAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVAlertView.swift; sourceTree = "<group>"; };
-		139545451EEFD49400D80B6B /* KVAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = KVAlertView.xib; path = AlertView.bundle/KVAlertView.xib; sourceTree = "<group>"; };
+		139545471EEFD53000D80B6B /* KVAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KVAlertView.xib; sourceTree = "<group>"; };
+		13CB4CE01EEFF7E0001EB1AB /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				13CB4CE11EEFF7E0001EB1AB /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +47,7 @@
 			children = (
 				136736551EEAD1E900C3066F /* KVAlertView */,
 				136736541EEAD1E900C3066F /* Products */,
+				13CB4CDF1EEFF7E0001EB1AB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -72,10 +76,18 @@
 		136736681EEAD24A00C3066F /* AlertView */ = {
 			isa = PBXGroup;
 			children = (
-				139545451EEFD49400D80B6B /* KVAlertView.xib */,
+				139545471EEFD53000D80B6B /* KVAlertView.xib */,
 				1367366B1EEAD34300C3066F /* KVAlertView.swift */,
 			);
 			path = AlertView;
+			sourceTree = "<group>";
+		};
+		13CB4CDF1EEFF7E0001EB1AB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				13CB4CE01EEFF7E0001EB1AB /* AudioToolbox.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,7 +150,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				139545461EEFD49400D80B6B /* KVAlertView.xib in Resources */,
+				139545481EEFD53000D80B6B /* KVAlertView.xib in Resources */,
 				136736611EEAD1E900C3066F /* LaunchScreen.storyboard in Resources */,
 				1367365E1EEAD1E900C3066F /* Assets.xcassets in Resources */,
 				1367365C1EEAD1E900C3066F /* Main.storyboard in Resources */,

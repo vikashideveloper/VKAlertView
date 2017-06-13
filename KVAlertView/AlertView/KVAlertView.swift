@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import AudioToolbox
 
 var viewHeight:CGFloat = 70.0
 
 public class KVAlertView: UIView {
     let screen = UIScreen.main.bounds
     @IBOutlet weak var popupView: UIView!
+    @IBOutlet weak var shadowView: UIView!
     @IBOutlet weak var popupViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var lblMessage: UILabel!
     
@@ -22,11 +24,15 @@ public class KVAlertView: UIView {
         }
     }
     
-    var alertScheduleTime = 2.0
-    var hideDelayTime: TimeInterval = 2.0
-    var bgColor = UIColor.gray
+    //Public variables
+    public var hideDelayTime: TimeInterval = 1.5
+    public var bgColor = UIColor.blue.withAlphaComponent(0.4)
+    public var textColor: UIColor = UIColor.black
+    public var isAllowVibration  = false
     
+    //class variables
     static var alertQueue = AlertQueue()
+    
     
     override public func awakeFromNib() {
         super.awakeFromNib()
@@ -37,22 +43,23 @@ public class KVAlertView: UIView {
     
     fileprivate func setUI() {
         self.frame = CGRect(x: 0.0, y: 0.0, width: screen.size.width, height: viewHeight + 20)
-        self.backgroundColor = bgColor
         popupViewTopConstraint.constant = -viewHeight
-        self.backgroundColor = UIColor.clear
-        
-        popupView.layer.cornerRadius = 10.0
-        popupView.clipsToBounds = true
         self.layoutIfNeeded()
+
+        self.backgroundColor = UIColor.clear
+        self.popupView.backgroundColor = bgColor
+        self.lblMessage.textColor = textColor
         
-        self.clipsToBounds = true
-        
+        popupView.layer.shadowColor = UIColor.black.cgColor
+        popupView.layer.shadowOpacity = 0.7
+        popupView.layer.shadowOffset = CGSize.zero
+        popupView.layer.shadowRadius = 3
+
     }
     
     fileprivate func setMessage() {
         lblMessage.text = message
     }
-    
     
 }
 
@@ -66,24 +73,16 @@ extension KVAlertView {
         alertQueue.showAlert()
     }
     
-   fileprivate class func loadViewFromNib()-> KVAlertView {
-    print(Bundle.allBundles)
-    let bundle = Bundle(identifier: "AlertView")!
+    fileprivate class func loadViewFromNib()-> KVAlertView {
+        let bundle = Bundle.main
         let views = bundle.loadNibNamed("KVAlertView", owner: nil, options: nil) as! [UIView]
         let alert = views[0] as! KVAlertView
         return alert
     }
     
-    
 }
 
-extension KVAlertView : CAAnimationDelegate {
-    
-}
-
-//MARK: Animation functions
-
-
+//MARK: AlertQueue
 class AlertQueue {
     var alerts = [KVAlertView]()
     
@@ -100,7 +99,7 @@ class AlertQueue {
     var frontAlert: KVAlertView? {return alerts.isEmpty ? nil : alerts.first}
 }
     
-
+//action for showing alertview.
 extension AlertQueue {
     
     func showAlert() {
@@ -111,24 +110,31 @@ extension AlertQueue {
         }
     }
     
+    
     fileprivate func showNextAlertAfter(delay: DispatchTime) {
         self.showWithAnimation(delay: delay)
     }
 
+    
     fileprivate func showWithAnimation(delay: DispatchTime) {
         DispatchQueue.main.asyncAfter(deadline: delay) {
-            let window = UIApplication.shared.delegate?.window!
-            window?.addSubview(self.frontAlert!)
-            
-            let anim = CABasicAnimation(keyPath: "position.y")
-            anim.duration = 0.4
-            anim.fromValue = -((viewHeight/2) + 20)
-            anim.toValue = (viewHeight/2) + 20
-            //anim.delegate = self
-            self.frontAlert?.popupView.layer.add(anim, forKey: "showanimation")
-            self.frontAlert?.popupViewTopConstraint.constant = 20
-            self.hideWithAnimation(delay: DispatchTime.now() + self.frontAlert!.hideDelayTime)
-            
+            if let frontAlert = self.frontAlert {
+                let window = UIApplication.shared.delegate?.window!
+                window?.addSubview(self.frontAlert!)
+                
+                let anim = CABasicAnimation(keyPath: "position.y")
+                anim.duration = 0.4
+                anim.fromValue = -((viewHeight/2) + 20)
+                anim.toValue = (viewHeight/2) + 20
+                //anim.delegate = self
+                frontAlert.popupView.layer.add(anim, forKey: "showanimation")
+                frontAlert.popupViewTopConstraint.constant = 20
+                self.hideWithAnimation(delay: DispatchTime.now() + frontAlert.hideDelayTime)
+                
+                if frontAlert.isAllowVibration {
+                    AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
+                }
+            }
         }
     }
     
