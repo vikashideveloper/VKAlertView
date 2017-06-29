@@ -14,7 +14,7 @@ var viewHeight:CGFloat = 70.0
 public class KVAlertView: UIView {
     let screen = UIScreen.main.bounds
     @IBOutlet weak var popupView: UIView!
-    @IBOutlet weak var shadowView: UIView!
+    @IBOutlet weak var roundCornerView: UIView!
     @IBOutlet weak var popupViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var lblMessage: UILabel!
     
@@ -26,8 +26,9 @@ public class KVAlertView: UIView {
     
     //Public variables
     public var hideDelayTime: TimeInterval = 1.5
-    public var bgColor = UIColor.black.withAlphaComponent(0.8)
-    public var textColor: UIColor = UIColor.white
+    public var singleMessageHideTime: TimeInterval = 2.0
+    public var bgColor = UIColor.clear
+    public var textColor: UIColor = UIColor.black
     public var isAllowVibration  = false
     
     //class variables
@@ -47,14 +48,16 @@ public class KVAlertView: UIView {
         self.layoutIfNeeded()
 
         self.backgroundColor = UIColor.clear
-        self.popupView.backgroundColor = bgColor
+        self.roundCornerView.backgroundColor = bgColor
         self.lblMessage.textColor = textColor
+        
         
         popupView.layer.shadowColor = UIColor.black.cgColor
         popupView.layer.shadowOpacity = 0.7
         popupView.layer.shadowOffset = CGSize.zero
         popupView.layer.shadowRadius = 3
-
+        popupView.layer.zPosition = 15
+        popupView.backgroundColor = .clear
     }
     
     fileprivate func setMessage() {
@@ -62,6 +65,8 @@ public class KVAlertView: UIView {
     }
     
 }
+
+
 
 //MARK: Class functions
 extension KVAlertView {
@@ -103,9 +108,7 @@ class AlertQueue {
 extension AlertQueue {
     
     func showAlert() {
-        if count > 1 {
-            
-        } else {
+        if count == 1 {
             showNextAlertAfter(delay: DispatchTime.now())
         }
     }
@@ -166,3 +169,30 @@ extension AlertQueue {
     }
     
 }
+
+
+//Userd for set blur effect in a view.
+class AlertBlurView: UIView {
+    @IBInspectable var cornerRadius: CGFloat = 0.0
+    
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.backgroundColor = UIColor.clear
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.extraLight)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        //always fill the view
+        blurEffectView.frame = self.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.addSubview(blurEffectView)
+        self.sendSubview(toBack: blurEffectView)
+        
+        self.layer.cornerRadius = cornerRadius
+        self.clipsToBounds = true
+    }
+}
+

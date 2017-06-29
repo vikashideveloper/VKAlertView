@@ -22,7 +22,7 @@ class ViewController: UIViewController {
 
 
     @IBAction func btnClicked(sender: UIButton) {
-        KVAlertView.show(message: "Dispose of any .")
+        KVAlertView.show(message: "Your alert message is showing here.")
     }
 }
 

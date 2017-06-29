@@ -18,34 +18,39 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5ou-4q-4Ib">
                     <rect key="frame" x="10" y="0.0" width="394" height="70"/>
                     <subviews>
-                        <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vJW-hb-C6o">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TP0-zj-NgL" customClass="AlertBlurView" customModule="KVAlertView" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="394" height="70"/>
-                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="1Zf-Rr-QdA">
-                                <rect key="frame" x="0.0" y="0.0" width="394" height="70"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qv1-vg-6Sq">
-                                        <rect key="frame" x="176" y="25" width="42" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="Qv1-vg-6Sq" firstAttribute="centerX" secondItem="1Zf-Rr-QdA" secondAttribute="centerX" id="Cvu-dR-xwm"/>
-                                    <constraint firstItem="Qv1-vg-6Sq" firstAttribute="centerY" secondItem="1Zf-Rr-QdA" secondAttribute="centerY" id="I8f-jU-Zl6"/>
-                                </constraints>
-                            </view>
-                            <blurEffect style="extraLight"/>
-                        </visualEffectView>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kpf-n6-4ij">
+                                    <rect key="frame" x="179" y="27" width="37" height="17.5"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="kpf-n6-4ij" secondAttribute="bottom" constant="5" id="2zD-kB-52n"/>
+                                <constraint firstItem="kpf-n6-4ij" firstAttribute="centerX" secondItem="TP0-zj-NgL" secondAttribute="centerX" id="OhX-Xi-JUO"/>
+                                <constraint firstItem="kpf-n6-4ij" firstAttribute="centerY" secondItem="TP0-zj-NgL" secondAttribute="centerY" id="eRa-U7-wk0"/>
+                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="kpf-n6-4ij" secondAttribute="trailing" constant="8" id="ey5-Bs-GWD"/>
+                                <constraint firstItem="kpf-n6-4ij" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="TP0-zj-NgL" secondAttribute="leading" constant="8" id="iFd-8J-RXt"/>
+                                <constraint firstItem="kpf-n6-4ij" firstAttribute="top" relation="greaterThanOrEqual" secondItem="TP0-zj-NgL" secondAttribute="top" constant="5" id="z09-Tt-CPP"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="15"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
                     </subviews>
-                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="bottom" secondItem="vJW-hb-C6o" secondAttribute="bottom" id="1xh-Il-c5B"/>
                         <constraint firstAttribute="height" constant="70" id="3hS-2v-4Mh"/>
-                        <constraint firstItem="vJW-hb-C6o" firstAttribute="leading" secondItem="5ou-4q-4Ib" secondAttribute="leading" id="PYb-sr-5JJ"/>
-                        <constraint firstAttribute="trailing" secondItem="vJW-hb-C6o" secondAttribute="trailing" id="Q7N-XD-hpN"/>
-                        <constraint firstItem="vJW-hb-C6o" firstAttribute="top" secondItem="5ou-4q-4Ib" secondAttribute="top" id="blY-Ql-RyD"/>
+                        <constraint firstItem="TP0-zj-NgL" firstAttribute="leading" secondItem="5ou-4q-4Ib" secondAttribute="leading" id="8gq-ix-h0m"/>
+                        <constraint firstItem="TP0-zj-NgL" firstAttribute="top" secondItem="5ou-4q-4Ib" secondAttribute="top" id="NP4-C2-3fa"/>
+                        <constraint firstAttribute="bottom" secondItem="TP0-zj-NgL" secondAttribute="bottom" id="OUZ-Eg-Wms"/>
+                        <constraint firstAttribute="trailing" secondItem="TP0-zj-NgL" secondAttribute="trailing" id="fJA-np-DLT"/>
                     </constraints>
                 </view>
             </subviews>
@@ -58,9 +63,10 @@
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="lblMessage" destination="Qv1-vg-6Sq" id="SfX-bx-gkx"/>
+                <outlet property="lblMessage" destination="kpf-n6-4ij" id="7v9-iN-dcm"/>
                 <outlet property="popupView" destination="5ou-4q-4Ib" id="hSP-hc-Aqu"/>
                 <outlet property="popupViewTopConstraint" destination="OcJ-Q1-azO" id="Heo-e5-gVW"/>
+                <outlet property="roundCornerView" destination="TP0-zj-NgL" id="o11-My-WUW"/>
             </connections>
             <point key="canvasLocation" x="3.5" y="-168.5"/>
         </view>
