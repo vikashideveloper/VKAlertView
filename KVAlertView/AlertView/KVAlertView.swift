@@ -27,7 +27,7 @@ public class KVAlertView: UIView {
     }
     
     //Public variables
-    public var bgColor = UIColor.clear
+    public var bgColor = UIColor(colorLiteralRed: 209.0/255.0, green: 215.0/255.0, blue: 231.0/255.0, alpha: 0.8)
     public var textColor: UIColor = UIColor.black
     public var isAllowVibration  = false
     
@@ -49,6 +49,7 @@ public class KVAlertView: UIView {
 
         self.backgroundColor = UIColor.clear
         self.roundCornerView.backgroundColor = bgColor
+        self.popupView.backgroundColor = .clear
         self.lblMessage.textColor = textColor
         
         
@@ -57,7 +58,6 @@ public class KVAlertView: UIView {
         popupView.layer.shadowOffset = CGSize.zero
         popupView.layer.shadowRadius = 3
         popupView.layer.zPosition = 15
-        popupView.backgroundColor = .clear
     }
     
     fileprivate func setMessage() {
@@ -148,7 +148,6 @@ extension AlertQueue {
             let front = self.dequeue()
             if KVAlertView.alertQueue.count > 0 {
                 self.showNextAlertAfter(delay: DispatchTime.now())
-                self.removeFromSuperview(delay: DispatchTime.now() + 0.5, alert: front!)
                 
             } else {
                 let anim = CABasicAnimation(keyPath: "position.y")
@@ -159,6 +158,8 @@ extension AlertQueue {
                 front?.popupViewTopConstraint.constant = -(viewHeight + 20)
                 
             }
+            self.removeFromSuperview(delay: DispatchTime.now() + 0.5, alert: front!)
+
         }
     }
     
@@ -183,7 +184,7 @@ class AlertBlurView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.backgroundColor = UIColor.clear
+        //self.backgroundColor = UIColor.clear
         let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.extraLight)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         //always fill the view
