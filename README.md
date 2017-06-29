@@ -1,4 +1,4 @@
-# VKAlertView
+# KVAlertView
 
 * will schedule your notification in a queue.
 
