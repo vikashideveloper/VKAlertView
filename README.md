@@ -2,5 +2,5 @@
 
 * will schedule your notification in a queue.
 
-CocoaPods : \n
+CocoaPods :
 * pod 'KVAlertView'
