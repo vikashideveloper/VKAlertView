@@ -11,7 +11,9 @@ import AudioToolbox
 
 var viewHeight:CGFloat = 70.0
 private var hideDelayTime: TimeInterval = 1.5
-private var singleMessageHideTime: TimeInterval = 2.0
+private var singleMessageHideDelayTime: TimeInterval = 2.0
+private var showAnimationDuration = 0.3
+private var hideAnimationDuration = 0.4
 
 public class KVAlertView: UIView {
     let screen = UIScreen.main.bounds
@@ -126,7 +128,7 @@ extension AlertQueue {
                 window?.addSubview(self.frontAlert!)
                 
                 let anim = CABasicAnimation(keyPath: "position.y")
-                anim.duration = 0.4
+                anim.duration = showAnimationDuration
                 anim.fromValue = -((viewHeight/2) + 20)
                 anim.toValue = (viewHeight/2) + 20
                 //anim.delegate = self
@@ -143,7 +145,7 @@ extension AlertQueue {
     
     
     fileprivate func hideWithAnimation() {
-        let delay = DispatchTime.now() + (KVAlertView.alertQueue.count > 1 ? hideDelayTime : singleMessageHideTime)
+        let delay = DispatchTime.now() + (KVAlertView.alertQueue.count > 1 ? hideDelayTime : singleMessageHideDelayTime)
         DispatchQueue.main.asyncAfter(deadline: delay) {
             let front = self.dequeue()
             if KVAlertView.alertQueue.count > 0 {
@@ -152,7 +154,7 @@ extension AlertQueue {
             } else {
                 let anim = CABasicAnimation(keyPath: "position.y")
                 anim.fromValue = (viewHeight/2) + 20
-                anim.duration = 0.5
+                anim.duration = hideAnimationDuration
                 anim.toValue = -((viewHeight/2) + 20)
                 front?.popupView.layer.add(anim, forKey: "Hideanimation")
                 front?.popupViewTopConstraint.constant = -(viewHeight + 20)
