@@ -10,6 +10,8 @@ import UIKit
 import AudioToolbox
 
 var viewHeight:CGFloat = 70.0
+private var hideDelayTime: TimeInterval = 1.5
+private var singleMessageHideTime: TimeInterval = 2.0
 
 public class KVAlertView: UIView {
     let screen = UIScreen.main.bounds
@@ -25,8 +27,6 @@ public class KVAlertView: UIView {
     }
     
     //Public variables
-    public var hideDelayTime: TimeInterval = 1.5
-    public var singleMessageHideTime: TimeInterval = 2.0
     public var bgColor = UIColor.clear
     public var textColor: UIColor = UIColor.black
     public var isAllowVibration  = false
@@ -132,7 +132,7 @@ extension AlertQueue {
                 //anim.delegate = self
                 frontAlert.popupView.layer.add(anim, forKey: "showanimation")
                 frontAlert.popupViewTopConstraint.constant = 20
-                self.hideWithAnimation(delay: DispatchTime.now() + frontAlert.hideDelayTime)
+                self.hideWithAnimation()
                 
                 if frontAlert.isAllowVibration {
                     AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
@@ -142,7 +142,8 @@ extension AlertQueue {
     }
     
     
-    fileprivate func hideWithAnimation(delay: DispatchTime) {
+    fileprivate func hideWithAnimation() {
+        let delay = DispatchTime.now() + (KVAlertView.alertQueue.count > 1 ? hideDelayTime : singleMessageHideTime)
         DispatchQueue.main.asyncAfter(deadline: delay) {
             let front = self.dequeue()
             if KVAlertView.alertQueue.count > 0 {
