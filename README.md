@@ -1,5 +1,6 @@
-#VKAlertView
-will schedule your notification in a queue.
+# VKAlertView
 
-CocoaPods
-pod 'KVAlertView'
+* will schedule your notification in a queue.
+
+CocoaPods : 
+*pod 'KVAlertView'
