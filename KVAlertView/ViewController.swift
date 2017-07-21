@@ -22,7 +22,7 @@ class ViewController: UIViewController {
 
 
     @IBAction func btnClicked(sender: UIButton) {
-        KVAlertView.show(message: "Your alert message is showing here.")
+        KVAlertView.show(title: "Notification Title", body: "Notification body will show here.")
     }
 }
 
